@@ -1,7 +1,5 @@
 {
   "env": {
-    "commonjs": true,
-    "es6": true,
     "jest": true
   },
   "extends": [
@@ -10,12 +8,17 @@
   ],
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": [
     "react"
   ],
   "rules": {
-    "no-console": "error"
+    "no-console": "error",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   }
 }

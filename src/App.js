@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { obterItensDoCarrinho } from './api';
+import ItemCarrinho from './components/ItemCarrinho'
 
 function App() {
+  const [itens, setItens] = useState([])
+
+  useEffect(() => {
+    obterDados()
+  }, [])
+
+  async function obterDados() {
+    const { data } = await obterItensDoCarrinho();
+    setItens(data.map(item => ({
+      id: item.id,
+      nome: item.nome,
+      valor: item.valor_unitario,
+      quantidade: item.quantidade,
+      urlImagem: item.url_imagem,
+      sku: item.sku
+    })))
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        itens.map(item =>
+          <ItemCarrinho key={item.id} {...item} />
+        )
+      }
     </div>
   );
 }
