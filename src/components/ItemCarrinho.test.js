@@ -8,4 +8,13 @@ describe('<ItemCarrinho />', () => {
     const textoDescritivo = getByText('item-carrinho')
     expect(textoDescritivo).toBeInTheDocument();
   });
+
+  it('Deve conter imagem cuja origem vem da prop urlImagem', () => {
+    const urlImagem = 'http://teste.com/'
+    const nome = 'produto'
+    const { queryByAltText } = render(<ItemCarrinho urlImagem={urlImagem} nome={nome} />)
+    const imagem = queryByAltText(nome)
+    expect(imagem).toBeInTheDocument();
+    expect(imagem.src).toBe(urlImagem);
+  })
 })

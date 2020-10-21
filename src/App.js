@@ -23,9 +23,10 @@ function App() {
 
   return (
     <div className="App">
+      <ItemCarrinho data-testid="item-carrinho" />
       {
         itens.map(item =>
-          <ItemCarrinho key={item.id} {...item} />
+          <ItemCarrinho data-testid="item-carrinho" key={item.id} {...item} />
         )
       }
     </div>
