@@ -1,10 +1,59 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
+import { colors, fontSize, spacing, typography } from '../styles';
+import Grade from './Grade';
+import PropTypes from 'prop-types';
 
-export default function ItemCarrinho({ id, nome, valor, quantidade, urlImagem, sku }) {
+export default function ItemCarrinho({
+  id,
+  nome,
+  valor,
+  quantidade,
+  urlImagem,
+  sku,
+}) {
   return (
-    <div data-testid="item-carrinho">
-      <img src={urlImagem} alt={nome} />
-      <span>item-carrinho</span>
-    </div>
-  )
+    <Container data-testid="item-carrinho">
+      <ImagemProduto src={urlImagem} alt={nome} />
+      <Grade flexDirection="column" justify="space-between">
+        <NomeDoProduto>{nome}</NomeDoProduto>
+        <SkuDoProduto>SKU {sku}</SkuDoProduto>
+      </Grade>
+    </Container>
+  );
 }
+
+ItemCarrinho.propTypes = {
+  id: PropTypes.number,
+  nome: PropTypes.string,
+  valor: PropTypes.string,
+  quantidade: PropTypes.string,
+  urlImagem: PropTypes.string,
+  sku: PropTypes.string,
+};
+
+const alturaDoItemCarrinho = '115px';
+
+const Container = styled.div`
+  padding: ${spacing.tiny} ${spacing.tiny} ${spacing.small};
+  height: ${alturaDoItemCarrinho};
+  box-sizing: border-box;
+  border: 1px solid ${colors.grey7};
+  display: flex;
+`;
+
+const ImagemProduto = styled.img`
+  height: 100%;
+  margin-right: ${spacing.large};
+`;
+
+const NomeDoProduto = styled.span`
+  ${typography.robotoRegular}
+  ${fontSize.small}
+`;
+
+const SkuDoProduto = styled.span`
+  color: ${colors.grey4};
+  ${typography.robotoMedium}
+  ${fontSize.tiny}
+`;
