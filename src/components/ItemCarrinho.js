@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { colors, fontSize, spacing, typography } from '../styles';
 import Grade from './Grade';
 import PropTypes from 'prop-types';
+import BotaoComIcone from './BotaoComIcone';
 
 export default function ItemCarrinho({
   id,
@@ -14,10 +15,18 @@ export default function ItemCarrinho({
 }) {
   return (
     <Container data-testid="item-carrinho">
-      <ImagemProduto src={urlImagem} alt={nome} />
+      <ImagemWrapper>
+        <ImagemProduto src={urlImagem} alt={nome} />
+      </ImagemWrapper>
       <Grade flexDirection="column" justify="space-between">
         <NomeDoProduto>{nome}</NomeDoProduto>
         <SkuDoProduto>SKU {sku}</SkuDoProduto>
+        <BotaoComIcone
+          icon="mode_comment_outlined"
+          color={colors.base}
+          text="Adicionar observação"
+          onClick={() => {}}
+        />
       </Grade>
     </Container>
   );
@@ -40,6 +49,11 @@ const Container = styled.div`
   box-sizing: border-box;
   border: 1px solid ${colors.grey7};
   display: flex;
+`;
+
+const ImagemWrapper = styled.div`
+  width: 90px;
+  overflow: hidden;
 `;
 
 const ImagemProduto = styled.img`
