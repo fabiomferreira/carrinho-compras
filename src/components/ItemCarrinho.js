@@ -21,19 +21,21 @@ export default function ItemCarrinho({
       <ImagemWrapper>
         <ImagemProduto src={urlImagem} alt={nome} />
       </ImagemWrapper>
-      <Grade flexDirection="column" justify="space-between">
-        <NomeDoProduto>{nome}</NomeDoProduto>
-        <SkuDoProduto>SKU {sku}</SkuDoProduto>
-        <BotaoComIcone
-          icon={<MdModeComment color={colors.base} size={12} />}
-          color={colors.base}
-          text="Adicionar observação"
-          onClick={() => {}}
-        />
+      <Grade item flexBasis="50%" marginRight={spacing.medium}>
+        <Grade flexDirection="column" justifyContent="space-between">
+          <NomeDoProduto>{nome}</NomeDoProduto>
+          <SkuDoProduto>SKU {sku}</SkuDoProduto>
+          <BotaoComIcone
+            icon={<MdModeComment color={colors.base} size={12} />}
+            color={colors.base}
+            text="Adicionar observação"
+            onClick={() => {}}
+          />
+        </Grade>
       </Grade>
-      <div>
+      <Grade item>
         <SeletorDeQuantidade value={quantidadeProduto} onChange={setQuantidade} />
-      </div>
+      </Grade>
     </Container>
   );
 }
@@ -70,6 +72,7 @@ const ImagemProduto = styled.img`
 const NomeDoProduto = styled.span`
   ${typography.robotoRegular}
   ${fontSize.small}
+  color: ${colors.grey1};
 `;
 
 const SkuDoProduto = styled.span`
