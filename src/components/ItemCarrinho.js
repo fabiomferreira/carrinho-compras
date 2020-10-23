@@ -14,8 +14,11 @@ export default function ItemCarrinho({
   quantidade,
   urlImagem,
   sku,
+  onChangeQuantidade,
 }) {
-  const [quantidadeProduto, setQuantidade] = useState(quantidade);
+  function handleQuantidade(quantidade) {
+    onChangeQuantidade(quantidade, id);
+  }
   return (
     <Container data-testid="item-carrinho">
       <ImagemWrapper>
@@ -34,7 +37,7 @@ export default function ItemCarrinho({
         </Grade>
       </Grade>
       <Grade item>
-        <SeletorDeQuantidade value={quantidadeProduto} onChange={setQuantidade} />
+        <SeletorDeQuantidade value={quantidade} onChange={handleQuantidade} />
       </Grade>
     </Container>
   );
@@ -47,6 +50,7 @@ ItemCarrinho.propTypes = {
   quantidade: PropTypes.string,
   urlImagem: PropTypes.string,
   sku: PropTypes.string,
+  onChangeQuantidade: PropTypes.func.isRequired,
 };
 
 const alturaDoItemCarrinho = '115px';

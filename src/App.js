@@ -23,10 +23,27 @@ function App() {
     );
   }
 
+  function onChangeQuantidade(quantidade, id) {
+    const indiceDoItem = itens.findIndex((item) => item.id === id);
+    const itemModificado = itens[indiceDoItem];
+    itemModificado.quantidade = quantidade;
+    atualizaItem(indiceDoItem, itemModificado);
+  }
+
+  function atualizaItem(indice, itemModificado) {
+    const aux = itens.slice();
+    aux[indice] = itemModificado;
+    setItens(aux);
+  }
+
   return (
     <div className="App">
       {itens.map((item) => (
-        <ItemCarrinho key={item.id} {...item} />
+        <ItemCarrinho
+          key={item.id}
+          {...item}
+          onChangeQuantidade={onChangeQuantidade}
+        />
       ))}
     </div>
   );
