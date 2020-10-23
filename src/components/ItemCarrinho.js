@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colors, fontSize, spacing, typography } from '../styles';
 import Grade from './Grade';
 import PropTypes from 'prop-types';
 import BotaoComIcone from './BotaoComIcone';
 import { MdModeComment } from 'react-icons/md';
+import SeletorDeQuantidade from './SeletorDeQuantidade';
+
 export default function ItemCarrinho({
   id,
   nome,
@@ -13,6 +15,7 @@ export default function ItemCarrinho({
   urlImagem,
   sku,
 }) {
+  const [quantidadeProduto, setQuantidade] = useState(quantidade);
   return (
     <Container data-testid="item-carrinho">
       <ImagemWrapper>
@@ -28,6 +31,9 @@ export default function ItemCarrinho({
           onClick={() => {}}
         />
       </Grade>
+      <div>
+        <SeletorDeQuantidade value={quantidadeProduto} onChange={setQuantidade} />
+      </div>
     </Container>
   );
 }
