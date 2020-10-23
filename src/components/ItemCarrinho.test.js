@@ -23,4 +23,9 @@ describe('<ItemCarrinho />', () => {
     expect(imagem).toBeInTheDocument();
     expect(imagem.src).toBe(urlImagem);
   });
+
+  it('Deve conter um botao com ícone', () => {
+    const { queryByTestId } = render(<ItemCarrinho />);
+    expect(queryByTestId('botao-com-icone')).toBeInTheDocument();
+  });
 });

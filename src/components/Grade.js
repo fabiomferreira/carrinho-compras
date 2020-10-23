@@ -6,7 +6,7 @@ export default function Grade(props) {
   const { flexDirection, justify } = props;
 
   return (
-    <Container flexDirection={flexDirection} justify={justify}>
+    <Container data-testid="grade" flexDirection={flexDirection} justify={justify}>
       {props.children}
     </Container>
   );

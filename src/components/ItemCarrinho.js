@@ -4,7 +4,7 @@ import { colors, fontSize, spacing, typography } from '../styles';
 import Grade from './Grade';
 import PropTypes from 'prop-types';
 import BotaoComIcone from './BotaoComIcone';
-
+import { MdModeComment } from 'react-icons/md';
 export default function ItemCarrinho({
   id,
   nome,
@@ -22,7 +22,7 @@ export default function ItemCarrinho({
         <NomeDoProduto>{nome}</NomeDoProduto>
         <SkuDoProduto>SKU {sku}</SkuDoProduto>
         <BotaoComIcone
-          icon="mode_comment_outlined"
+          icon={<MdModeComment color={colors.base} size={12} />}
           color={colors.base}
           text="Adicionar observação"
           onClick={() => {}}
