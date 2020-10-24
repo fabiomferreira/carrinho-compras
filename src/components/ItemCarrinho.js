@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import BotaoComIcone from './BotaoComIcone';
 import { MdModeComment, MdDelete } from 'react-icons/md';
 import SeletorDeQuantidade from './SeletorDeQuantidade';
-import { formataDinheiro } from '../utils/formatar';
+import { capitalize, formataDinheiro } from '../utils/formatar';
 
 export default function ItemCarrinho({
   id,
@@ -27,7 +27,7 @@ export default function ItemCarrinho({
       </ImagemWrapper>
       <Grade item flexBasis="50%" marginRight={spacing.medium}>
         <Grade flexDirection="column" justifyContent="space-between">
-          <NomeDoProduto>{nome}</NomeDoProduto>
+          <NomeDoProduto>{capitalize(nome)}</NomeDoProduto>
           <SkuDoProduto>SKU {sku}</SkuDoProduto>
           <BotaoComIcone
             icon={<MdModeComment color={colors.base} size={12} />}

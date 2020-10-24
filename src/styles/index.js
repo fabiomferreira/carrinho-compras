@@ -18,6 +18,9 @@ export const typography = {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   `,
+  montserrat: `
+    font-family: 'Montserrat', sans-serif;
+  `,
 };
 
 export const fontSize = {

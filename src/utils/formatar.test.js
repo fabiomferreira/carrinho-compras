@@ -1,4 +1,4 @@
-import { formataDinheiro } from './formatar';
+import { formataDinheiro, capitalize } from './formatar';
 
 const space = '\xa0';
 
@@ -12,6 +12,13 @@ describe('formatar.js', () => {
     });
     it('valor com duas casas', () => {
       expect(formataDinheiro('7.29')).toEqual(`R$${space}7,29`);
+    });
+  });
+  describe('capitalize', () => {
+    it('lower case', () => {
+      expect(
+        capitalize('esse é o teste que testa a funcionalidade da função')
+      ).toEqual('Esse é o Teste que Testa a Funcionalidade da Função');
     });
   });
 });
