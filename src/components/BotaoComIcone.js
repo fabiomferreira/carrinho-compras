@@ -14,8 +14,8 @@ export default function BotaoComIcone({ icon, text, color, onClick }) {
 
 BotaoComIcone.propTypes = {
   icon: PropTypes.node,
-  text: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  color: PropTypes.string,
   onClick: PropTypes.func.isRequired,
 };
 

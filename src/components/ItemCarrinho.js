@@ -4,7 +4,7 @@ import { colors, fontSize, spacing, typography } from '../styles';
 import Grade from './Grade';
 import PropTypes from 'prop-types';
 import BotaoComIcone from './BotaoComIcone';
-import { MdModeComment } from 'react-icons/md';
+import { MdModeComment, MdDelete } from 'react-icons/md';
 import SeletorDeQuantidade from './SeletorDeQuantidade';
 import { formataDinheiro } from '../utils/formatar';
 
@@ -40,9 +40,17 @@ export default function ItemCarrinho({
       <Grade item marginRight={spacing.medium}>
         <SeletorDeQuantidade value={quantidade} onChange={handleQuantidade} />
       </Grade>
-      <Grade item>
-        <Grade justifyContent="flex-end">
+      <Grade flexGrow="1" justifyContent="flex-end">
+        <Grade
+          flexDirection="column"
+          alignItems="flex-end"
+          justifyContent="space-between"
+        >
           <TextoValor>{formataDinheiro(valor)}</TextoValor>
+          <BotaoComIcone
+            icon={<MdDelete color={colors.base} size={14} />}
+            onClick={() => {}}
+          />
         </Grade>
       </Grade>
     </Container>
