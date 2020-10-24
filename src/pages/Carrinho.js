@@ -9,8 +9,9 @@ const politicaQuantidadeMinima = 'quantidade_itens_minima';
 
 export default function Carrinho() {
   const [itens, setItens] = useState([]);
-  const [descontoPorValor, setDescontoPorValor] = useState();
-  const [descontoPorQuantidade, setDescontoPorQuantidade] = useState();
+  const [politicasComerciais, setPoliticasComerciais] = useState();
+  const [totalSemDesconto, setTotalSemDesconto] = useState();
+  const [valorDoDesconto, setValorDoDesconto] = useState();
 
   useEffect(() => {
     obterDados();
@@ -18,11 +19,46 @@ export default function Carrinho() {
 
   useEffect(() => {
     calculaValorTotal();
-  }, [descontoPorValor, descontoPorQuantidade, itens]);
+  }, [politicasComerciais, itens]);
 
   function calculaValorTotal() {
-    if (!descontoPorValor || !descontoPorQuantidade || !itens.length) return;
-    console.log(descontoPorValor, descontoPorQuantidade);
+    if (!politicasComerciais || !itens.length) return;
+    let totalBruto = 0;
+    itens.forEach((item) => {
+      totalBruto += item.valor * item.quantidade;
+    });
+
+    const indiceDescontoPorQuantidade = politicasComerciais.findIndex(
+      (pol) => pol.tipo === politicaQuantidadeMinima
+    );
+    const indiceDescontoPorValor = politicasComerciais.findIndex(
+      (pol) => pol.tipo === politicaValorMinimo
+    );
+
+    politicasComerciais[indiceDescontoPorQuantidade].seAplica =
+      itens.length >= politicasComerciais[indiceDescontoPorQuantidade].valor;
+
+    politicasComerciais[indiceDescontoPorValor].seAplica =
+      totalBruto >= politicasComerciais[indiceDescontoPorValor].valor;
+
+    const politicasQueSeAplicamOrdenadasPorPorcentagem = politicasComerciais
+      .filter((pol) => pol.seAplica)
+      .sort((polA, polB) => polA.desconto_percentual < polB.desconto_percentual);
+
+    let porcentagemDesconto = 0;
+    if (politicasQueSeAplicamOrdenadasPorPorcentagem.length) {
+      porcentagemDesconto =
+        politicasQueSeAplicamOrdenadasPorPorcentagem[
+          politicasQueSeAplicamOrdenadasPorPorcentagem.length - 1
+        ].desconto_percentual;
+    }
+
+    const valorDesconto = (totalBruto * porcentagemDesconto) / 100;
+
+    setTotalSemDesconto(totalBruto);
+    setValorDoDesconto(valorDoDesconto);
+
+    console.log(totalBruto, porcentagemDesconto, valorDesconto);
   }
 
   function obterDados() {
@@ -46,12 +82,7 @@ export default function Carrinho() {
 
   async function obterPoliticasDeDesconto() {
     const { data } = await obterPoliticasComerciais();
-    setDescontoPorValor(
-      data.find((politica) => politica.tipo === politicaValorMinimo)
-    );
-    setDescontoPorQuantidade(
-      data.find((politica) => politica.tipo === politicaQuantidadeMinima)
-    );
+    setPoliticasComerciais(data);
   }
 
   function onChangeQuantidade(quantidade, id) {

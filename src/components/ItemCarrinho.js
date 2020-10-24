@@ -60,8 +60,8 @@ export default function ItemCarrinho({
 ItemCarrinho.propTypes = {
   id: PropTypes.number,
   nome: PropTypes.string,
-  valor: PropTypes.string,
-  quantidade: PropTypes.string,
+  valor: PropTypes.number,
+  quantidade: PropTypes.number,
   urlImagem: PropTypes.string,
   sku: PropTypes.string,
   onChangeQuantidade: PropTypes.func.isRequired,
