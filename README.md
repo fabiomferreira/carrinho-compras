@@ -66,3 +66,14 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+# Dúvidas
+
+## Imagem do Produto
+
+Algumas imagens não são quadradas, como deve ser o resize/crop?
+
+## Políticas Comerciais
+
+A política de quantidade mínima vale por produto ou para o carrinho todo?

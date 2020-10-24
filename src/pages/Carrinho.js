@@ -1,17 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { obterItensDoCarrinho } from '../api';
+import { obterItensDoCarrinho, obterPoliticasComerciais } from '../api';
 import ItemCarrinho from '../components/ItemCarrinho';
 import TituloDaPagina from '../components/TituloDaPagina';
 import styled from 'styled-components';
 
+const politicaValorMinimo = 'valor_minimo';
+const politicaQuantidadeMinima = 'quantidade_itens_minima';
+
 export default function Carrinho() {
   const [itens, setItens] = useState([]);
+  const [descontoPorValor, setDescontoPorValor] = useState();
+  const [descontoPorQuantidade, setDescontoPorQuantidade] = useState();
 
   useEffect(() => {
     obterDados();
   }, []);
 
-  async function obterDados() {
+  useEffect(() => {
+    calculaValorTotal();
+  }, [descontoPorValor, descontoPorQuantidade, itens]);
+
+  function calculaValorTotal() {
+    if (!descontoPorValor || !descontoPorQuantidade || !itens.length) return;
+    console.log(descontoPorValor, descontoPorQuantidade);
+  }
+
+  function obterDados() {
+    obterItens();
+    obterPoliticasDeDesconto();
+  }
+
+  async function obterItens() {
     const { data } = await obterItensDoCarrinho();
     setItens(
       data.map((item) => ({
@@ -22,6 +41,16 @@ export default function Carrinho() {
         urlImagem: item.url_imagem,
         sku: item.sku,
       }))
+    );
+  }
+
+  async function obterPoliticasDeDesconto() {
+    const { data } = await obterPoliticasComerciais();
+    setDescontoPorValor(
+      data.find((politica) => politica.tipo === politicaValorMinimo)
+    );
+    setDescontoPorQuantidade(
+      data.find((politica) => politica.tipo === politicaQuantidadeMinima)
     );
   }
 
