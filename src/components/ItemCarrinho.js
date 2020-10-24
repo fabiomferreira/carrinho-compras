@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { colors, fontSize, spacing, typography } from '../styles';
 import Grade from './Grade';
@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import BotaoComIcone from './BotaoComIcone';
 import { MdModeComment } from 'react-icons/md';
 import SeletorDeQuantidade from './SeletorDeQuantidade';
+import { formataDinheiro } from '../utils/formatar';
 
 export default function ItemCarrinho({
   id,
@@ -36,8 +37,13 @@ export default function ItemCarrinho({
           />
         </Grade>
       </Grade>
-      <Grade item>
+      <Grade item marginRight={spacing.medium}>
         <SeletorDeQuantidade value={quantidade} onChange={handleQuantidade} />
+      </Grade>
+      <Grade item>
+        <Grade justifyContent="flex-end">
+          <TextoValor>{formataDinheiro(valor)}</TextoValor>
+        </Grade>
       </Grade>
     </Container>
   );
@@ -83,4 +89,9 @@ const SkuDoProduto = styled.span`
   color: ${colors.grey4};
   ${typography.robotoMedium}
   ${fontSize.tiny}
+`;
+
+const TextoValor = styled.span`
+  ${typography.robotoMedium}
+  ${fontSize.small}
 `;
