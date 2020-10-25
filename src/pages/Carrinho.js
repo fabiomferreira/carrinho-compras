@@ -6,6 +6,7 @@ import Grade from '../components/Grade';
 import { spacing } from '../styles';
 import ResumoDoPedido from '../components/ResumoDoPedido';
 import { CompraContext } from '../App';
+import PageContainer from '../components/PageContainer';
 
 const politicaValorMinimo = 'valor_minimo';
 const politicaQuantidadeMinima = 'quantidade_itens_minima';
@@ -119,7 +120,7 @@ export default function Carrinho() {
   }
 
   return (
-    <>
+    <PageContainer>
       <TituloDaPagina>Carrinho</TituloDaPagina>
       <Grade>
         <Grade item md="8" xs="12" paddingRight={spacing.extraLarge}>
@@ -142,6 +143,6 @@ export default function Carrinho() {
           />
         </Grade>
       </Grade>
-    </>
+    </PageContainer>
   );
 }

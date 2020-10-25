@@ -8,6 +8,7 @@ import Grade from '../components/Grade';
 import { campoObrigatorio, numeroDeCaracteres, validacao } from '../utils/validacao';
 import { CompraContext } from '../App';
 import { enviarCompra } from '../api';
+import PageContainer from '../components/PageContainer';
 
 export default function TelaFinalDaCompra() {
   const { itens } = useContext(CompraContext);
@@ -45,7 +46,7 @@ export default function TelaFinalDaCompra() {
   }
 
   return (
-    <>
+    <PageContainer>
       <TituloDaPagina>Finalização da Compra</TituloDaPagina>
       <form onSubmit={salvarCompra}>
         <Subtitulo>Endereço</Subtitulo>
@@ -66,6 +67,6 @@ export default function TelaFinalDaCompra() {
           </Grade>
         </Grade>
       </form>
-    </>
+    </PageContainer>
   );
 }

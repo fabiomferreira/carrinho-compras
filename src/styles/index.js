@@ -4,6 +4,7 @@ export const spacing = {
   medium: '20px',
   extraMedium: '30px',
   large: '40px',
+  mediumLarge: '50px',
   extraLarge: '70px',
 };
 

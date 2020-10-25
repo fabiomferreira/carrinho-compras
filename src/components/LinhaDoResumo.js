@@ -25,13 +25,13 @@ LinhaDoResumo.propTypes = {
 
 const TextoEsquerda = styled.span`
   line-height: ${({ total }) => (total ? spacing.extraMedium : spacing.medium)};
-  color: ${({ total }) => (total ? colors.grey1 : colors.grey2)};
+  color: ${({ total }) => (total ? colors.grey1 : colors.grey3)};
   ${({ total }) => (total ? typography.robotoBold : typography.robotoRegular)}
   ${({ total }) => (total ? fontSize.medium : fontSize.small)}
 `;
 const TextoDireita = styled.span`
   line-height: ${({ total }) => (total ? spacing.extraMedium : spacing.medium)};
-  color: ${({ total }) => (total ? colors.grey1 : colors.grey2)};
+  color: ${({ total }) => (total ? colors.grey1 : colors.grey3)};
   ${({ total }) => (total ? typography.robotoBold : typography.robotoMedium)}
   ${({ total }) => (total ? fontSize.medium : fontSize.small)}
 `;
