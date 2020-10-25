@@ -13,7 +13,7 @@ export default function Botao({ texto, onClick, style }) {
 
 Botao.propTypes = {
   texto: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   style: PropTypes.object,
 };
 

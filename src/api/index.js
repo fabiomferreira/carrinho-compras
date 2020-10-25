@@ -9,3 +9,7 @@ export async function obterItensDoCarrinho() {
 export async function obterPoliticasComerciais() {
   return axios.get(`${API_URL}/politicas-comerciais`);
 }
+
+export async function enviarCompra(compra) {
+  return axios.post(`${API_URL}/carrinho`, compra);
+}

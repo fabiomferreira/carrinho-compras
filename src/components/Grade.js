@@ -23,15 +23,7 @@ const Container = styled.div`
 `;
 
 Grade.propTypes = {
-  flexDirection: PropTypes.oneOf(['row', 'column']),
   children: PropTypes.node,
-  justifyContent: PropTypes.oneOf([
-    'center',
-    'flex-start',
-    'flex-end',
-    'space-between',
-  ]),
-  flexBasis: PropTypes.string,
   item: PropTypes.bool,
   md: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   xs: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

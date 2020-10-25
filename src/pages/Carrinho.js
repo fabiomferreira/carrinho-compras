@@ -17,6 +17,25 @@ export default function Carrinho() {
   const [valorDoDesconto, setValorDoDesconto] = useState();
 
   useEffect(() => {
+    async function obterItens() {
+      const { data } = await obterItensDoCarrinho();
+      setItens(
+        data.map((item) => ({
+          id: item.id,
+          nome: item.nome,
+          valor: item.valor_unitario,
+          quantidade: item.quantidade,
+          urlImagem: item.url_imagem,
+          sku: item.sku,
+          observacao: '',
+        }))
+      );
+    }
+
+    async function obterPoliticasDeDesconto() {
+      const { data } = await obterPoliticasComerciais();
+      setPoliticasComerciais(data);
+    }
     function obterDados() {
       obterItens();
       obterPoliticasDeDesconto();
@@ -69,26 +88,6 @@ export default function Carrinho() {
     }
     calculaValorTotal();
   }, [politicasComerciais, itens]);
-
-  async function obterItens() {
-    const { data } = await obterItensDoCarrinho();
-    setItens(
-      data.map((item) => ({
-        id: item.id,
-        nome: item.nome,
-        valor: item.valor_unitario,
-        quantidade: item.quantidade,
-        urlImagem: item.url_imagem,
-        sku: item.sku,
-        observacao: '',
-      }))
-    );
-  }
-
-  async function obterPoliticasDeDesconto() {
-    const { data } = await obterPoliticasComerciais();
-    setPoliticasComerciais(data);
-  }
 
   function onChangeQuantidade(quantidade, id) {
     const indiceDoItem = itens.findIndex((item) => item.id === id);
