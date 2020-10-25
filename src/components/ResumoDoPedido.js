@@ -5,8 +5,10 @@ import LinhaDoResumo from './LinhaDoResumo';
 import PropTypes from 'prop-types';
 import { formataDinheiro } from '../utils/formatar';
 import Botao from './Botao';
+import { useHistory } from 'react-router-dom';
 
 export default function ResumoDoPedido({ quantidade, subtotal, desconto, total }) {
+  const history = useHistory();
   return (
     <Container>
       <TituloWrapper>
@@ -24,7 +26,7 @@ export default function ResumoDoPedido({ quantidade, subtotal, desconto, total }
       <Botao
         style={{ margin: `${spacing.medium} 0 ` }}
         texto="Finalizar a compra"
-        onClick={() => {}}
+        onClick={() => history.push('/final-compra')}
       />
     </Container>
   );
