@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { obterItensDoCarrinho, obterPoliticasComerciais } from '../api';
 import ItemCarrinho from '../components/ItemCarrinho';
 import TituloDaPagina from '../components/TituloDaPagina';
 import Grade from '../components/Grade';
 import { spacing } from '../styles';
 import ResumoDoPedido from '../components/ResumoDoPedido';
+import { CompraContext } from '../App';
 
 const politicaValorMinimo = 'valor_minimo';
 const politicaQuantidadeMinima = 'quantidade_itens_minima';
 
 export default function Carrinho() {
-  const [itens, setItens] = useState([]);
+  const { itens, setItens } = useContext(CompraContext);
   const [politicasComerciais, setPoliticasComerciais] = useState();
   const [totalSemDesconto, setTotalSemDesconto] = useState();
   const [valorDoDesconto, setValorDoDesconto] = useState();
