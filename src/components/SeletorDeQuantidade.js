@@ -1,9 +1,10 @@
 import React from 'react';
 import { MdAdd, MdRemove } from 'react-icons/md';
-import { colors, fontSize } from '../styles';
+import { colors, fontSize, spacing } from '../styles';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const tamanhoDoIcone = 24;
+const tamanhoDoIcone = 20;
 export default function SeletorDeQuantidade({ value, onChange }) {
   function incrementa() {
     onChange(value + 1);
@@ -27,12 +28,17 @@ export default function SeletorDeQuantidade({ value, onChange }) {
   );
 }
 
+SeletorDeQuantidade.propTypes = {
+  value: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
 const Container = styled.div`
   border: 1px solid ${colors.grey6};
   border-radius: 5px;
   padding: 0.125rem 0.25rem;
   display: flex;
-  width: 120px;
+  width: 100px;
   justify-content: space-between;
   align-items: center;
   background: ${colors.white};
@@ -40,7 +46,9 @@ const Container = styled.div`
 
 const BotaoWrapper = styled.div`
   cursor: pointer;
+  display: flex;
 `;
 const ValueWrapper = styled.span`
-  font-size: ${fontSize.small};
+  ${fontSize.small}
+  line-heiht: ${spacing.small};
 `;

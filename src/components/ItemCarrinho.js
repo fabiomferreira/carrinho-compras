@@ -16,6 +16,7 @@ export default function ItemCarrinho({
   urlImagem,
   sku,
   onChangeQuantidade,
+  onRemove,
 }) {
   function handleQuantidade(quantidade) {
     onChangeQuantidade(quantidade, id);
@@ -49,7 +50,7 @@ export default function ItemCarrinho({
           <TextoValor>{formataDinheiro(valor)}</TextoValor>
           <BotaoComIcone
             icon={<MdDelete color={colors.base} size={18} />}
-            onClick={() => {}}
+            onClick={() => onRemove(id)}
           />
         </Grade>
       </Grade>
@@ -65,18 +66,21 @@ ItemCarrinho.propTypes = {
   urlImagem: PropTypes.string,
   sku: PropTypes.string,
   onChangeQuantidade: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 const alturaDoItemCarrinho = '115px';
 
 const Container = styled.div`
   padding: ${spacing.tiny} ${spacing.tiny} ${spacing.small};
-  height: ${alturaDoItemCarrinho};
   box-sizing: border-box;
   border-bottom: 1px solid ${colors.grey6};
   display: flex;
   &:hover {
     background: ${colors.grey7};
+  }
+  @media only screen and (min-width: 600px) {
+    height: ${alturaDoItemCarrinho};
   }
 `;
 

@@ -25,7 +25,12 @@ export default function Carrinho() {
 
   useEffect(() => {
     function calculaValorTotal() {
-      if (!politicasComerciais || !itens.length) return;
+      if (!politicasComerciais) return;
+      if (!itens.length) {
+        setTotalSemDesconto(0);
+        setValorDoDesconto(0);
+        return;
+      }
       let totalBruto = 0;
       itens.forEach((item) => {
         totalBruto += item.valor * item.quantidade;
@@ -90,6 +95,13 @@ export default function Carrinho() {
     atualizaItem(indiceDoItem, itemModificado);
   }
 
+  function onRemove(id) {
+    const indiceDoItem = itens.findIndex((item) => item.id === id);
+    const aux = itens.slice();
+    aux.splice(indiceDoItem, 1);
+    setItens(aux);
+  }
+
   function atualizaItem(indice, itemModificado) {
     const aux = itens.slice();
     aux[indice] = itemModificado;
@@ -106,6 +118,7 @@ export default function Carrinho() {
               key={item.id}
               {...item}
               onChangeQuantidade={onChangeQuantidade}
+              onRemove={onRemove}
             />
           ))}
         </Grade>
