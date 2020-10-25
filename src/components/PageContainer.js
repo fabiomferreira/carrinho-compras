@@ -12,6 +12,6 @@ PageContainer.propTypes = {
 };
 
 const Container = styled.div`
-  padding: ${spacing.mediumLarge} ${spacing.medium} ${spacing.mediumLarge}
-    ${spacing.large};
+  padding: 0px ${spacing.medium} ${spacing.mediumLarge} ${spacing.large};
+  margin: 0 auto;
 `;

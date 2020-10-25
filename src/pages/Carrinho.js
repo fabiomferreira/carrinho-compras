@@ -123,7 +123,7 @@ export default function Carrinho() {
     <PageContainer>
       <TituloDaPagina>Carrinho</TituloDaPagina>
       <Grade>
-        <Grade item md="8" xs="12" paddingRight={spacing.extraLarge}>
+        <Grade item md="8" sm="12" paddingRight={spacing.extraLarge}>
           {itens.map((item) => (
             <ItemCarrinho
               key={item.id}
@@ -134,7 +134,7 @@ export default function Carrinho() {
             />
           ))}
         </Grade>
-        <Grade item md="4" xs="12">
+        <Grade item md="4" sm="12">
           <ResumoDoPedido
             quantidade={itens.length}
             subtotal={totalSemDesconto}
