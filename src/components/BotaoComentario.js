@@ -6,6 +6,7 @@ import { MdModeComment } from 'react-icons/md';
 
 export default function BotaoObservacao({ value, onChange }) {
   const [modoEdicao, setModoEdicao] = useState(false);
+  const container = useRef();
   const input = useRef();
 
   function onClick() {
@@ -28,7 +29,7 @@ export default function BotaoObservacao({ value, onChange }) {
 
   useEffect(() => {
     function handleCliqueFora(event) {
-      if (input.current && !input.current.contains(event.target)) {
+      if (container.current && !container.current.contains(event.target)) {
         setModoEdicao(false);
       }
     }
@@ -36,10 +37,10 @@ export default function BotaoObservacao({ value, onChange }) {
     return () => {
       document.removeEventListener('mousedown', handleCliqueFora);
     };
-  }, [input]);
+  }, [container]);
 
   return (
-    <Container data-testid="botao-com-icone" onClick={onClick}>
+    <Container ref={container} data-testid="botao-com-icone" onClick={onClick}>
       <IconWrapper>
         <MdModeComment color={colors.base} size={12} />
       </IconWrapper>
