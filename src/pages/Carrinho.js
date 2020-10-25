@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { obterItensDoCarrinho, obterPoliticasComerciais } from '../api';
 import ItemCarrinho from '../components/ItemCarrinho';
 import TituloDaPagina from '../components/TituloDaPagina';
-import styled from 'styled-components';
+import Grade from '../components/Grade';
+import { spacing } from '../styles';
+import ResumoDoPedido from '../components/ResumoDoPedido';
 
 const politicaValorMinimo = 'valor_minimo';
 const politicaQuantidadeMinima = 'quantidade_itens_minima';
@@ -14,57 +16,53 @@ export default function Carrinho() {
   const [valorDoDesconto, setValorDoDesconto] = useState();
 
   useEffect(() => {
+    function obterDados() {
+      obterItens();
+      obterPoliticasDeDesconto();
+    }
     obterDados();
   }, []);
 
   useEffect(() => {
+    function calculaValorTotal() {
+      if (!politicasComerciais || !itens.length) return;
+      let totalBruto = 0;
+      itens.forEach((item) => {
+        totalBruto += item.valor * item.quantidade;
+      });
+
+      const indiceDescontoPorQuantidade = politicasComerciais.findIndex(
+        (pol) => pol.tipo === politicaQuantidadeMinima
+      );
+      const indiceDescontoPorValor = politicasComerciais.findIndex(
+        (pol) => pol.tipo === politicaValorMinimo
+      );
+
+      politicasComerciais[indiceDescontoPorQuantidade].seAplica =
+        itens.length >= politicasComerciais[indiceDescontoPorQuantidade].valor;
+
+      politicasComerciais[indiceDescontoPorValor].seAplica =
+        totalBruto >= politicasComerciais[indiceDescontoPorValor].valor;
+
+      const politicasQueSeAplicamOrdenadasPorPorcentagem = politicasComerciais
+        .filter((pol) => pol.seAplica)
+        .sort((polA, polB) => polA.desconto_percentual < polB.desconto_percentual);
+
+      let porcentagemDesconto = 0;
+      if (politicasQueSeAplicamOrdenadasPorPorcentagem.length) {
+        porcentagemDesconto =
+          politicasQueSeAplicamOrdenadasPorPorcentagem[
+            politicasQueSeAplicamOrdenadasPorPorcentagem.length - 1
+          ].desconto_percentual;
+      }
+
+      const valorDesconto = (totalBruto * porcentagemDesconto) / 100;
+
+      setTotalSemDesconto(totalBruto);
+      setValorDoDesconto(valorDesconto);
+    }
     calculaValorTotal();
   }, [politicasComerciais, itens]);
-
-  function calculaValorTotal() {
-    if (!politicasComerciais || !itens.length) return;
-    let totalBruto = 0;
-    itens.forEach((item) => {
-      totalBruto += item.valor * item.quantidade;
-    });
-
-    const indiceDescontoPorQuantidade = politicasComerciais.findIndex(
-      (pol) => pol.tipo === politicaQuantidadeMinima
-    );
-    const indiceDescontoPorValor = politicasComerciais.findIndex(
-      (pol) => pol.tipo === politicaValorMinimo
-    );
-
-    politicasComerciais[indiceDescontoPorQuantidade].seAplica =
-      itens.length >= politicasComerciais[indiceDescontoPorQuantidade].valor;
-
-    politicasComerciais[indiceDescontoPorValor].seAplica =
-      totalBruto >= politicasComerciais[indiceDescontoPorValor].valor;
-
-    const politicasQueSeAplicamOrdenadasPorPorcentagem = politicasComerciais
-      .filter((pol) => pol.seAplica)
-      .sort((polA, polB) => polA.desconto_percentual < polB.desconto_percentual);
-
-    let porcentagemDesconto = 0;
-    if (politicasQueSeAplicamOrdenadasPorPorcentagem.length) {
-      porcentagemDesconto =
-        politicasQueSeAplicamOrdenadasPorPorcentagem[
-          politicasQueSeAplicamOrdenadasPorPorcentagem.length - 1
-        ].desconto_percentual;
-    }
-
-    const valorDesconto = (totalBruto * porcentagemDesconto) / 100;
-
-    setTotalSemDesconto(totalBruto);
-    setValorDoDesconto(valorDoDesconto);
-
-    console.log(totalBruto, porcentagemDesconto, valorDesconto);
-  }
-
-  function obterDados() {
-    obterItens();
-    obterPoliticasDeDesconto();
-  }
 
   async function obterItens() {
     const { data } = await obterItensDoCarrinho();
@@ -101,17 +99,25 @@ export default function Carrinho() {
   return (
     <>
       <TituloDaPagina>Carrinho</TituloDaPagina>
-      <ListaDeItens>
-        {itens.map((item) => (
-          <ItemCarrinho
-            key={item.id}
-            {...item}
-            onChangeQuantidade={onChangeQuantidade}
+      <Grade>
+        <Grade item md="8" xs="12" paddingRight={spacing.extraLarge}>
+          {itens.map((item) => (
+            <ItemCarrinho
+              key={item.id}
+              {...item}
+              onChangeQuantidade={onChangeQuantidade}
+            />
+          ))}
+        </Grade>
+        <Grade item md="4" xs="12">
+          <ResumoDoPedido
+            quantidade={itens.length}
+            subtotal={totalSemDesconto}
+            desconto={valorDoDesconto}
+            total={totalSemDesconto - valorDoDesconto}
           />
-        ))}
-      </ListaDeItens>
+        </Grade>
+      </Grade>
     </>
   );
 }
-
-const ListaDeItens = styled.div``;

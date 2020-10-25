@@ -48,7 +48,7 @@ export default function ItemCarrinho({
         >
           <TextoValor>{formataDinheiro(valor)}</TextoValor>
           <BotaoComIcone
-            icon={<MdDelete color={colors.base} size={14} />}
+            icon={<MdDelete color={colors.base} size={18} />}
             onClick={() => {}}
           />
         </Grade>
@@ -73,28 +73,33 @@ const Container = styled.div`
   padding: ${spacing.tiny} ${spacing.tiny} ${spacing.small};
   height: ${alturaDoItemCarrinho};
   box-sizing: border-box;
-  border: 1px solid ${colors.grey7};
+  border-bottom: 1px solid ${colors.grey6};
   display: flex;
+  &:hover {
+    background: ${colors.grey7};
+  }
 `;
 
 const ImagemWrapper = styled.div`
-  width: 90px;
+  height: 90px;
   overflow: hidden;
+  margin-right: ${spacing.large};
 `;
 
 const ImagemProduto = styled.img`
   height: 100%;
-  margin-right: ${spacing.large};
 `;
 
 const NomeDoProduto = styled.span`
   ${typography.robotoRegular}
   ${fontSize.small}
   color: ${colors.grey1};
+  line-height: ${spacing.medium};
 `;
 
 const SkuDoProduto = styled.span`
   color: ${colors.grey4};
+  line-height: ${spacing.medium};
   ${typography.robotoMedium}
   ${fontSize.tiny}
 `;
@@ -102,4 +107,6 @@ const SkuDoProduto = styled.span`
 const TextoValor = styled.span`
   ${typography.robotoMedium}
   ${fontSize.small}
+  color: ${colors.grey2};
+  line-height: ${spacing.medium};
 `;

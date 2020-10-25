@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { fontSize, typography } from '../styles';
+import { fontSize, spacing, typography } from '../styles';
 
 export default function TituloDaPagina(props) {
   return (
@@ -21,5 +21,6 @@ const Titulo = styled.h2`
 `;
 
 const Container = styled.div`
+  margin: ${spacing.extraMedium} 0;
   text-align: center;
 `;

@@ -15,7 +15,7 @@ const Componente = () => (
 describe('<ItemCarrinho />', () => {
   it('Deve conter nome', () => {
     const { getByText } = render(<Componente />);
-    expect(getByText('teste')).toBeInTheDocument();
+    expect(getByText('Teste')).toBeInTheDocument();
   });
 
   it('Deve conter sku', () => {

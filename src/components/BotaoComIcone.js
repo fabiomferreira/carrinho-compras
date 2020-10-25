@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 export default function BotaoComIcone({ icon, text, color, onClick }) {
   return (
     <Container data-testid="botao-com-icone" onClick={onClick}>
-      {icon}
+      <IconWrapper marginRight={!text || 4}>{icon}</IconWrapper>
       <Texto color={color}>{text}</Texto>
     </Container>
   );
@@ -29,4 +29,8 @@ const Container = styled.div`
   display: flex;
   cursor: pointer;
   align-items: center;
+`;
+
+const IconWrapper = styled.div`
+  margin-right: ${({ marginRight }) => marginRight}px;
 `;

@@ -10,6 +10,7 @@ export default function SeletorDeQuantidade({ value, onChange }) {
   }
 
   function decrementa() {
+    if (value === 1) return;
     onChange(value - 1);
   }
 
@@ -34,6 +35,7 @@ const Container = styled.div`
   width: 120px;
   justify-content: space-between;
   align-items: center;
+  background: ${colors.white};
 `;
 
 const BotaoWrapper = styled.div`

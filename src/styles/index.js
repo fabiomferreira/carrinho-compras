@@ -2,7 +2,9 @@ export const spacing = {
   tiny: '10px',
   small: '15px',
   medium: '20px',
+  extraMedium: '30px',
   large: '40px',
+  extraLarge: '70px',
 };
 
 export const typography = {
