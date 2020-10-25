@@ -4,9 +4,10 @@ import { colors, fontSize, spacing, typography } from '../styles';
 import Grade from './Grade';
 import PropTypes from 'prop-types';
 import BotaoComIcone from './BotaoComIcone';
-import { MdModeComment, MdDelete } from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
 import SeletorDeQuantidade from './SeletorDeQuantidade';
 import { capitalize, formataDinheiro } from '../utils/formatar';
+import BotaoObservacao from './BotaoComentario';
 
 export default function ItemCarrinho({
   id,
@@ -17,9 +18,14 @@ export default function ItemCarrinho({
   sku,
   onChangeQuantidade,
   onRemove,
+  observacao,
+  onChangeObservacao,
 }) {
   function handleQuantidade(quantidade) {
     onChangeQuantidade(quantidade, id);
+  }
+  function handleObservacao(event) {
+    onChangeObservacao(event.target.value, id);
   }
   return (
     <Container data-testid="item-carrinho">
@@ -30,12 +36,7 @@ export default function ItemCarrinho({
         <Grade flexDirection="column" justifyContent="space-between">
           <NomeDoProduto>{capitalize(nome)}</NomeDoProduto>
           <SkuDoProduto>SKU {sku}</SkuDoProduto>
-          <BotaoComIcone
-            icon={<MdModeComment color={colors.base} size={12} />}
-            color={colors.base}
-            text="Adicionar observação"
-            onClick={() => {}}
-          />
+          <BotaoObservacao value={observacao} onChange={handleObservacao} />
         </Grade>
       </Grade>
       <Grade item marginRight={spacing.medium}>

@@ -79,6 +79,7 @@ export default function Carrinho() {
         quantidade: item.quantidade,
         urlImagem: item.url_imagem,
         sku: item.sku,
+        observacao: '',
       }))
     );
   }
@@ -96,10 +97,19 @@ export default function Carrinho() {
   }
 
   function onRemove(id) {
+    let result = window.confirm('Tem certeza de que deseja remover o item?');
+    if (!result) return;
     const indiceDoItem = itens.findIndex((item) => item.id === id);
     const aux = itens.slice();
     aux.splice(indiceDoItem, 1);
     setItens(aux);
+  }
+
+  function onChangeObservacao(observacao, id) {
+    const indiceDoItem = itens.findIndex((item) => item.id === id);
+    const itemModificado = itens[indiceDoItem];
+    itemModificado.observacao = observacao;
+    atualizaItem(indiceDoItem, itemModificado);
   }
 
   function atualizaItem(indice, itemModificado) {
@@ -119,6 +129,7 @@ export default function Carrinho() {
               {...item}
               onChangeQuantidade={onChangeQuantidade}
               onRemove={onRemove}
+              onChangeObservacao={onChangeObservacao}
             />
           ))}
         </Grade>
