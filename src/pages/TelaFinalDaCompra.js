@@ -9,15 +9,17 @@ import { campoObrigatorio, numeroDeCaracteres, validacao } from '../utils/valida
 import { CompraContext } from '../App';
 import { enviarCompra } from '../api';
 import PageContainer from '../components/PageContainer';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function TelaFinalDaCompra() {
-  const { itens } = useContext(CompraContext);
+  const { itens, setItens } = useContext(CompraContext);
   const rua = useInput('', campoObrigatorio);
   const bairro = useInput('', campoObrigatorio);
   const numero = useInput('', campoObrigatorio);
   const numeroCartao = useInput('', (valor) => numeroDeCaracteres(valor, 12));
   const cvc = useInput('', (valor) => numeroDeCaracteres(valor, 3));
   const formulario = [rua, bairro, numero, numeroCartao, cvc];
+  const history = useHistory();
 
   async function salvarCompra(event) {
     event.preventDefault();
@@ -39,7 +41,8 @@ export default function TelaFinalDaCompra() {
         },
       };
       await enviarCompra(payload);
-      alert('Compra finalizada com sucesso');
+      setItens([]);
+      history.push('/sucesso');
     } catch (erro) {
       alert('Não foi possível finalizar sua compra. Tente novamente mais tarde.');
     }

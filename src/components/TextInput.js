@@ -49,6 +49,9 @@ const Container = styled.div`
   width: ${({ width }) => width || '200px'};
   height: 80px;
   padding-bottom: ${spacing.small};
+  @media only screen and (max-width: 812px) {
+    width: 100%;
+  }
 `;
 
 const StyledInput = styled.input`

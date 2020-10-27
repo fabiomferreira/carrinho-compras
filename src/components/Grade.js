@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 export default function Grade(props) {
-  const { item, md, sm, xs } = props;
+  const { item, md, sm, xs, spacing } = props;
   return (
     <Container data-testid="grade" style={props} item={item} md={md} sm={sm} xs={xs}>
       {props.children}
@@ -20,7 +20,7 @@ const Container = styled.div`
     flex-basis: ${({ xs }) => (xs / 12) * 100}%;
     flex-wrap: wrap;
   }
-  @media only screen and (min-device-width: 812px) and (max-device-width: 1024px) {
+  @media only screen and (max-device-width: 1024px) {
     flex-basis: ${({ sm }) => (sm / 12) * 100}%;
     flex-wrap: wrap;
   }

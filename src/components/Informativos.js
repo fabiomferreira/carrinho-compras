@@ -4,9 +4,11 @@ import Grade from './Grade';
 import { typography, fontSize, colors } from '../styles';
 import { MdCreditCard, MdLocalOffer, MdLocalShipping } from 'react-icons/md';
 
+const color = colors.grey3;
 const StyledSpan = styled.span`
-  ${typography.robotoRegular}
+  ${typography.robotoMedium}
   ${fontSize.tiny}
+  color: ${colors.grey1};
   padding-left: 4px;
 `;
 const Informativo = ({ icone, texto }) => (
@@ -25,15 +27,15 @@ export default function Informativos() {
         justifyContent="space-between"
       >
         <Informativo
-          icone={<MdLocalShipping size={20} />}
+          icone={<MdLocalShipping size={20} color={color} />}
           texto="Delivery apenas para Joinville"
         />
         <Informativo
-          icone={<MdLocalOffer size={20} />}
+          icone={<MdLocalOffer size={20} color={color} />}
           texto="Desconto de 10% nas compras acima de R$ 200,00"
         />
         <Informativo
-          icone={<MdCreditCard size={20} />}
+          icone={<MdCreditCard size={20} color={color} />}
           texto="Pague em até 12x no cartão"
         />
       </Grade>

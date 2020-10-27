@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { MdPerson, MdPlace, MdMenu, MdShoppingCart, MdSearch } from 'react-icons/md';
 import { colors, fontSize, spacing, typography } from '../styles';
 import Grade from './Grade';
 import styled from 'styled-components';
+import { CompraContext } from '../App';
+import { formataDinheiro } from '../utils/formatar';
+import { useHistory } from 'react-router-dom';
 
 const ItemSuperior = ({ icone, texto }) => (
   <Grade alignItems="center">
@@ -48,11 +51,20 @@ const CarrinhoValor = styled.span`
   padding-left: 4px;
 `;
 
-const CarrinhoInfo = ({ valor }) => (
-  <Grade>
-    <MdShoppingCart color={colors.base} />
-    <CarrinhoValor>{valor}</CarrinhoValor>
-  </Grade>
+const CarrinhoInfoWrapper = styled.div`
+  @media only screen and (max-width: 812px) {
+    justify-self: flex-end;
+    padding: ${spacing.tiny} 0;
+  }
+`;
+
+const CarrinhoInfo = ({ valor, onClick }) => (
+  <CarrinhoInfoWrapper onClick={onClick}>
+    <Grade cursor="pointer">
+      <MdShoppingCart color={colors.base} />
+      <CarrinhoValor>{valor}</CarrinhoValor>
+    </Grade>
+  </CarrinhoInfoWrapper>
 );
 
 const StyledInput = styled.input`
@@ -89,21 +101,27 @@ const Container = styled.div`
 
 const Content = styled.div`
   padding: 0 ${spacing.mediumLarge};
+  @media only screen and (max-width: 1023px) {
+    padding: 0 ${spacing.tiny};
+  }
 `;
 
 export default function Cabecalho() {
+  const { valorTotal } = useContext(CompraContext);
+  const history = useHistory();
+
   return (
-    <Container>
+    <Container id="cabecalho">
       <Content>
         <Grade margin={`${spacing.medium} 0 ${spacing.small}`}>
           <Grade justifyContent="space-between" md="12">
-            <Grade item md="8">
+            <Grade item md="8" xs="4">
               <ItemSuperior
                 icone={<FaWhatsapp size={20} />}
                 texto="(47) 9999-9999"
               />
             </Grade>
-            <Grade md="4" justifyContent="flex-end">
+            <Grade md="4" xs="8" justifyContent="flex-end">
               <ItemSuperior icone={<MdPerson size={20} />} texto="Arethusa" />
               <ItemSuperior
                 icone={<MdPlace size={20} />}
@@ -113,7 +131,7 @@ export default function Cabecalho() {
           </Grade>
         </Grade>
         <div style={{ margin: `${spacing.tiny} 0`, textAlign: 'center' }}>
-          <span style={{ fontSize: '32px' }}>Logo</span>
+          <span style={{ fontSize: '32px' }}>Loja do Fábio</span>
         </div>
         <Grade
           margin={`${spacing.tiny} 0`}
@@ -124,7 +142,10 @@ export default function Cabecalho() {
           <Grade item md="4" xs="12">
             <SearchInput placeholder="O que você procura?" />
           </Grade>
-          <CarrinhoInfo valor="R$ 60,00" />
+          <CarrinhoInfo
+            onClick={() => history.push('/')}
+            valor={formataDinheiro(valorTotal)}
+          />
         </Grade>
       </Content>
     </Container>

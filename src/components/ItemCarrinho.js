@@ -32,27 +32,31 @@ export default function ItemCarrinho({
       <ImagemWrapper>
         <ImagemProduto src={urlImagem} alt={nome} />
       </ImagemWrapper>
-      <Grade item flexBasis="50%" marginRight={spacing.medium}>
+      <Grade item md="6" marginRight={spacing.medium}>
         <Grade flexDirection="column" justifyContent="space-between">
           <NomeDoProduto>{capitalize(nome)}</NomeDoProduto>
           <SkuDoProduto>SKU {sku}</SkuDoProduto>
           <BotaoObservacao value={observacao} onChange={handleObservacao} />
         </Grade>
       </Grade>
-      <Grade item marginRight={spacing.medium}>
-        <SeletorDeQuantidade value={quantidade} onChange={handleQuantidade} />
-      </Grade>
-      <Grade flexGrow="1" justifyContent="flex-end">
-        <Grade
-          flexDirection="column"
-          alignItems="flex-end"
-          justifyContent="space-between"
-        >
-          <TextoValor>{formataDinheiro(valor)}</TextoValor>
-          <BotaoComIcone
-            icon={<MdDelete color={colors.base} size={18} />}
-            onClick={() => onRemove(id)}
-          />
+      <Grade md="4">
+        <Grade item md="6">
+          <SeletorWrapper>
+            <SeletorDeQuantidade value={quantidade} onChange={handleQuantidade} />
+          </SeletorWrapper>
+        </Grade>
+        <Grade flexGrow="1" justifyContent="flex-end" md="6">
+          <Grade
+            flexDirection="column"
+            alignItems="flex-end"
+            justifyContent="space-between"
+          >
+            <TextoValor>{formataDinheiro(valor)}</TextoValor>
+            <BotaoComIcone
+              icon={<MdDelete color={colors.base} size={18} />}
+              onClick={() => onRemove(id)}
+            />
+          </Grade>
         </Grade>
       </Grade>
     </Container>
@@ -68,6 +72,8 @@ ItemCarrinho.propTypes = {
   sku: PropTypes.string,
   onChangeQuantidade: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  observacao: PropTypes.string.isRequired,
+  onChangeObservacao: PropTypes.func.isRequired,
 };
 
 const alturaDoItemCarrinho = '115px';
@@ -80,19 +86,24 @@ const Container = styled.div`
   &:hover {
     background: ${colors.grey7};
   }
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 812px) {
     height: ${alturaDoItemCarrinho};
   }
 `;
 
 const ImagemWrapper = styled.div`
   height: 90px;
-  overflow: hidden;
+  width: 90px;
   margin-right: ${spacing.large};
 `;
 
-const ImagemProduto = styled.img`
+const ImagemProduto = styled.div`
+  background-image: url(${({ src }) => src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   height: 100%;
+  width: 90px;
 `;
 
 const NomeDoProduto = styled.span`
@@ -114,4 +125,10 @@ const TextoValor = styled.span`
   ${fontSize.small}
   color: ${colors.grey2};
   line-height: ${spacing.medium};
+`;
+
+const SeletorWrapper = styled.div`
+  @media only screen and (min-width: 1024px) {
+    margin-right: ${spacing.medium};
+  }
 `;

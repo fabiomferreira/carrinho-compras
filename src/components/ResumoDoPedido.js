@@ -9,6 +9,9 @@ import { useHistory } from 'react-router-dom';
 
 export default function ResumoDoPedido({ quantidade, subtotal, desconto, total }) {
   const history = useHistory();
+  function exibeValor(valor) {
+    return valor ? formataDinheiro(valor) : 'R$ 0,00';
+  }
   return (
     <Container>
       <TituloWrapper>
@@ -16,13 +19,10 @@ export default function ResumoDoPedido({ quantidade, subtotal, desconto, total }
       </TituloWrapper>
       <Subtotais>
         <LinhaDoResumo esquerda="Itens" direita={quantidade} />
-        <LinhaDoResumo
-          esquerda="Total em produtos"
-          direita={formataDinheiro(subtotal)}
-        />
-        <LinhaDoResumo esquerda="Descontos" direita={formataDinheiro(desconto)} />
+        <LinhaDoResumo esquerda="Total em produtos" direita={exibeValor(subtotal)} />
+        <LinhaDoResumo esquerda="Descontos" direita={exibeValor(desconto)} />
       </Subtotais>
-      <LinhaDoResumo esquerda="Total" direita={formataDinheiro(total)} total />
+      <LinhaDoResumo esquerda="Total" direita={exibeValor(total)} total />
       <Botao
         style={{ margin: `${spacing.medium} 0 ` }}
         texto="Finalizar a compra"
