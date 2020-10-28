@@ -30,7 +30,7 @@ export default function ItemCarrinho({
   return (
     <Container data-testid="item-carrinho">
       <ImagemWrapper>
-        <ImagemProduto src={urlImagem} alt={nome} />
+        <ImagemProduto data-testid="imagem-produto" src={urlImagem} alt={nome} />
       </ImagemWrapper>
       <Grade item md="6" marginRight={spacing.medium}>
         <Grade flexDirection="column" justifyContent="space-between">

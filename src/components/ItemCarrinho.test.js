@@ -7,6 +7,10 @@ const Componente = () => (
   <ItemCarrinho
     nome="teste"
     sku="teste-sku"
+    quantidade={2}
+    observacao=""
+    onChangeObservacao={jest.fn}
+    onRemove={jest.fn}
     urlImagem="http://teste.com/"
     onChangeQuantidade={onChangeQuantidade}
   />
@@ -26,10 +30,11 @@ describe('<ItemCarrinho />', () => {
   it('Deve conter imagem cuja origem vem da prop urlImagem', () => {
     const urlImagem = 'http://teste.com/';
     const nome = 'teste';
-    const { queryByAltText } = render(<Componente />);
-    const imagem = queryByAltText(nome);
+    const { queryByTestId } = render(<Componente />);
+    const imagem = queryByTestId('imagem-produto');
     expect(imagem).toBeInTheDocument();
-    expect(imagem.src).toBe(urlImagem);
+    expect(imagem.getAttribute('src')).toBe(urlImagem);
+    expect(imagem.getAttribute('alt')).toBe(nome);
   });
 
   it('Deve conter dois botões com ícone', () => {
